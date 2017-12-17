@@ -36,5 +36,14 @@ public class MobilePhoneTest {
 		}
 		assertEquals("The phone can store only 150 contacts", phone.addContact(contact));
 	}
+	
+	@Test
+	public void phoneContactCanBeEdited(){
+		phone.addContact(contact);
+		phone.addContact(contact2);
+		phone.addContact(contact3);
+		phone.editContactName(contact, "Mark");
+		assertEquals("Mark", phone.findContactByName("Mark").getName());
+	}
 
 }

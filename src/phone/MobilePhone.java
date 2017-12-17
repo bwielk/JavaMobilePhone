@@ -21,5 +21,18 @@ public class MobilePhone {
 	public ArrayList<Contact> getContacts(){
 		return this.contacts;
 	}
+	
+	public Contact findContactByName(String name){
+		for(Contact contact : this.contacts){
+			if(contact.getName() == name){
+				return contact;
+			}
+		}
+		return null;
+	}
+	
+	public void editContactName(Contact contact, String newName){
+		contact.setName(newName);
+	}
 
 }
