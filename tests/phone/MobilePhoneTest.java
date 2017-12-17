@@ -45,5 +45,14 @@ public class MobilePhoneTest {
 		phone.editContactName(contact, "Mark");
 		assertEquals("Mark", phone.findContactByName("Mark").getName());
 	}
-
+	
+	@Test
+	public void phoneCanRemoveAContact(){
+		phone.addContact(contact);
+		phone.addContact(contact2);
+		phone.addContact(contact3);
+		phone.removeContact("John");
+		assertEquals(2, phone.getContacts().size());
+	}
+	
 }
