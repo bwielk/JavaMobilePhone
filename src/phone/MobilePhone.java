@@ -10,6 +10,8 @@ public class MobilePhone {
 	
 	
 	public static void main(String[] args){
+		Contact contact1 = new Contact("John", "0789345532");
+		addContact(contact1);
 		boolean quit = false;
 		int choice = 0;
 		printMenu();
@@ -44,36 +46,54 @@ public class MobilePhone {
 	}
 
 	private static void findContactByName() {
-		// TODO Auto-generated method stub
+		System.out.println("Enter a contact's name to search");
+		String name = scanner.nextLine();
+		Contact contact = findContactByName(name);
+		System.out.println("\t Contact name: " + "\t" + contact.getName());
+		System.out.println("\t Contact phone number: " + "\t" + contact.getPhoneNumber());
 		
 	}
 
 	private static void deleteContact() {
-		// TODO Auto-generated method stub
-		
+		int sizeOfContacts = contacts.size();
+		System.out.println("\nEnter the contact name to delete");
+		String name = scanner.nextLine();
+		removeContact(name);
+		if(contacts.size() < sizeOfContacts){
+			System.out.println(name + " has been removed");
+		}
 	}
 
 	private static void editContact() {
-		// TODO Auto-generated method stub
-		
-	}
+		System.out.println("Enter a contact's name");
+		String name = scanner.nextLine();
+		Contact contact = findContactByName(name);
+		System.out.println("Enter new name: ");
+		String newName = scanner.nextLine();
+		System.out.println("Enter a new phone number");
+		String newNumber = scanner.nextLine();
+		contact.setName(newName);
+		contact.setPhoneNumber(newNumber);
+		System.out.print("Changes has been made");
+		}
 
 	private static void addNewContact() {
 		System.out.println("\nEnter the contact name: ");
 		String name = scanner.nextLine();
 		System.out.println("\nEnter the phone number: ");
 		String number = scanner.nextLine();
-		contacts.add(new Contact(name, number));
+		Contact contact =new Contact(name, number);
+		addContact(contact);
 		System.out.print("\nThe contact " + name + " has been added");
 	}
 
 	private static void showAllContacts() {
 		System.out.println("\nHere are your contacts");
-		if(MobilePhone.contacts.size() == 0){
-			System.out.println("The list is empty");
+		if(contacts.size() == 0){
+			System.out.println("The list is empty. Click 2 to enter your first contact");
 		}else{
-		for(int i=0; i<MobilePhone.contacts.size(); i++){
-			System.out.println("\t" + MobilePhone.contacts.get(i).getName() + ":\t " + MobilePhone.contacts.get(i).getPhoneNumber());
+		for(int i=0; i<contacts.size(); i++){
+			System.out.println("\t" + contacts.get(i).getName() + ":\t " + contacts.get(i).getPhoneNumber());
 			}
 		}
 	}
@@ -89,35 +109,35 @@ public class MobilePhone {
 		System.out.println("\tPress 6: to quit the menu");
 	}
 	
-	public String addContact(Contact contact){
+	public static String addContact(Contact contact){
 		if(contacts.size()<150){
-			MobilePhone.contacts.add(contact);
+			contacts.add(contact);
 			return "Contact " + contact.getName() + " has been added";
 		}
 		return "The phone can store only 150 contacts";
 	}
 	
 	public ArrayList<Contact> getContacts(){
-		return MobilePhone.contacts;
+		return contacts;
 	}
 	
-	public Contact findContactByName(String name){
-		for(Contact contact : MobilePhone.contacts){
+	public static Contact findContactByName(String name){
+		ArrayList<Contact> array = new ArrayList<Contact>();
+		for(Contact contact : contacts){
 			if(contact.getName() == name){
-				return contact;
+				array.add(contact);
 			}
 		}
-		return null;
+		return array.get(0);
 	}
 	
 	public void editContactName(Contact contact, String newName){
 		contact.setName(newName);
 	}
 	
-	public void removeContact(String name){
+	public static void removeContact(String name){
 		Contact contact = findContactByName(name);
-		int indexToDelete = MobilePhone.contacts.indexOf(contact);
-		MobilePhone.contacts.remove(indexToDelete);
+		contacts.remove(contacts.indexOf(contact));
 	}
 
 }
