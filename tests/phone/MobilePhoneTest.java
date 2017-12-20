@@ -17,7 +17,7 @@ public class MobilePhoneTest {
 		contact = new Contact("John","07893456244");
 		contact2 = new Contact("Mother", "O9873452111");
 		contact3 = new Contact("Mike", "O7234221109");
-		phone = new MobilePhone();
+		phone = new MobilePhone("07947927788");
 		
 	}
 	@Test
