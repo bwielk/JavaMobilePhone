@@ -4,16 +4,20 @@ import java.util.ArrayList;
 
 public class MobilePhone {
 	
-	private String myPhoneNumber;
 	private ArrayList<Contact> contacts;
 	
 	public MobilePhone(String myPhoneNumber){
-		this.myPhoneNumber = myPhoneNumber;
 		this.contacts = new ArrayList<Contact>();
 	}
 
 	public String addContact(Contact contact){
 		if(contacts.size()<150){
+			for(int i=0; i<contacts.size(); i++){
+				Contact element = contacts.get(i);
+				if(element.getName() == contact.getName()){
+					return "The contact already exists";
+				}
+			}
 			contacts.add(contact);
 			return "Contact " + contact.getName() + " has been added";
 		}
@@ -24,22 +28,40 @@ public class MobilePhone {
 		return contacts;
 	}
 	
-	public Contact findContactByName(String name){
-		ArrayList<Contact> array = new ArrayList<Contact>();
-		for(Contact contact : contacts){
+	private int findContact(String name){
+		for(int i=0; i<contacts.size(); i++){
+			Contact contact = contacts.get(i);
 			if(contact.getName() == name){
-				array.add(contact);
+				return i;
 			}
 		}
-		return array.get(0);
+		return -1;
 	}
 	
-	public void editContactName(Contact contact, String newName){
-		contact.setName(newName);
+	private int findContact(Contact contact){
+		return contacts.indexOf(contact);
 	}
 	
-	public void removeContact(String name){
-		Contact contact = findContactByName(name);
-		contacts.remove(contacts.indexOf(contact));
+	public String queryContact(Contact contact){
+		if(findContact(contact) >= 0){
+			return contact.getName();
+		}
+		return null;
+	}
+	
+	
+	public void editContactName(Contact oldContact, Contact newContact){
+		contacts.set(contacts.indexOf(oldContact), newContact);
+	}
+	
+	public boolean removeContact(Contact contact){
+		int foundPosition = findContact(contact);
+		if(foundPosition<0){
+			System.out.println("The contact doesn't exist");
+			return false;
+		}
+		contacts.remove(foundPosition);
+		System.out.println("The contact has been deleted");
+		return true;
 	}
 }

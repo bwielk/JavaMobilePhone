@@ -53,7 +53,7 @@ public class MobilePhoneTest {
 		phone.addContact(contact);
 		phone.addContact(contact2);
 		phone.addContact(contact3);
-		phone.removeContact("John");
+		phone.removeContact(contact);
 		assertEquals(2, phone.getContacts().size());
 	}
 	

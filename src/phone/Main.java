@@ -10,7 +10,7 @@ public class Main {
 	public static void main(String[] args){
 		Contact contact1 = new Contact("John", "07893455321");
 		phone.addContact(contact1);
-		boolean quit = false;
+		boolean quit = false; 
 		int choice = 0;
 		printMenu();
 		while(!quit){
