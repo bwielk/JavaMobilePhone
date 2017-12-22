@@ -22,7 +22,7 @@ public class Main {
 				printMenu();
 				break;
 			case 1:
-				showAllContacts();
+				phone.showAllContacts();
 				break;
 			case 2:
 				addNewContact();
@@ -46,33 +46,44 @@ public class Main {
 	private static void findContactByName() {
 		System.out.println("Enter a contact's name to search");
 		String name = scanner.nextLine();
-		Contact contact = phone.findContactByName(name);
+		Contact contact = phone.queryContact(name);
 		System.out.println("\t Contact name: " + "\t" + contact.getName());
 		System.out.println("\t Contact phone number: " + "\t" + contact.getPhoneNumber());
 		
 	}
 
 	private static void deleteContact() {
-		int sizeOfContacts = phone.getContacts().size();
 		System.out.println("\nEnter the contact name to delete");
 		String name = scanner.nextLine();
-		phone.removeContact(name);
-		if(phone.getContacts().size() < sizeOfContacts){
-			System.out.println(name + " has been removed");
+		Contact contact = phone.queryContact(name);
+		if(contact == null){
+			System.out.println("Contact not found");
+			return;
+		}
+		if(phone.removeContact(contact)){
+			System.out.println("Contact deleted");
+		}else{
+			System.out.println("Fail. Contact doesn't exist");
 		}
 	}
 
 	private static void editContact() {
 		System.out.println("Enter a contact's name");
 		String name = scanner.nextLine();
-		Contact contact = phone.findContactByName(name);
+		Contact contact = phone.queryContact(name);
+		if(contact == null){
+			System.out.println("The contact cannot be found");
+			return;
+		}
 		System.out.println("Enter new name: ");
 		String newName = scanner.nextLine();
 		System.out.println("Enter a new phone number");
 		String newNumber = scanner.nextLine();
-		contact.setName(newName);
-		contact.setPhoneNumber(newNumber);
-		System.out.print("Changes has been made");
+		Contact newContact = new Contact(newName, newNumber);
+		if(phone.editContact(contact, newContact)){
+			System.out.print("Changes has been made");
+		};
+		
 		}
 
 	private static void addNewContact() {
@@ -83,17 +94,6 @@ public class Main {
 		Contact contact =new Contact(name, number);
 		phone.addContact(contact);
 		System.out.print("\nThe contact " + name + " has been added");
-	}
-
-	private static void showAllContacts() {
-		System.out.println("\nHere are your contacts");
-		if(phone.getContacts().size() == 0){
-			System.out.println("The list is empty. Click 2 to enter your first contact");
-		}else{
-		for(int i=0; i<phone.getContacts().size(); i++){
-			System.out.println("\t" + phone.getContacts().get(i).getName() + ":\t " + phone.getContacts().get(i).getPhoneNumber());
-			}
-		}
 	}
 
 	public static void printMenu(){

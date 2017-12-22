@@ -28,6 +28,17 @@ public class MobilePhone {
 		return contacts;
 	}
 	
+	public void showAllContacts() {
+		System.out.println("\nHere are your contacts");
+		if(contacts.size() == 0){
+			System.out.println("The list is empty. Click 2 to enter your first contact");
+		}else{
+		for(int i=0; i<contacts.size(); i++){
+			System.out.println("\t" + contacts.get(i).getName() + ":\t " + contacts.get(i).getPhoneNumber());
+			}
+		}
+	}
+	
 	private int findContact(String name){
 		for(int i=0; i<contacts.size(); i++){
 			Contact contact = contacts.get(i);
@@ -49,9 +60,20 @@ public class MobilePhone {
 		return null;
 	}
 	
+	public Contact queryContact(String name){
+		int position = findContact(name);
+		if(position >=0){
+			return contacts.get(position);
+		}
+		return null;
+	}
 	
-	public void editContactName(Contact oldContact, Contact newContact){
-		contacts.set(contacts.indexOf(oldContact), newContact);
+	public boolean editContact(Contact oldContact, Contact newContact){
+		if(findContact(oldContact.getName()) >= 0){
+			contacts.set(contacts.indexOf(oldContact), newContact);
+			return true;
+		}
+		return false;
 	}
 	
 	public boolean removeContact(Contact contact){

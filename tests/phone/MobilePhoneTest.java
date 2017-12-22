@@ -43,8 +43,9 @@ public class MobilePhoneTest {
 		phone.addContact(contact);
 		phone.addContact(contact2);
 		phone.addContact(contact3);
-		phone.editContactName(contact, "Mark");
-		assertEquals("Mark", phone.findContactByName("Mark").getName());
+		Contact contact4 = new Contact("Eve", "09452345667");
+		phone.editContact(contact, contact4);
+		assertEquals("Eve", phone.queryContact(contact4));
 	}
 	
 	@Test
@@ -55,13 +56,5 @@ public class MobilePhoneTest {
 		phone.addContact(contact3);
 		phone.removeContact(contact);
 		assertEquals(2, phone.getContacts().size());
-	}
-	
-	@Test
-	public void phoneCanFindAContact(){
-		phone.addContact(contact);
-		phone.addContact(contact2);
-		phone.addContact(contact3);
-		assertEquals("07893456244", phone.findContactByName("John").getPhoneNumber());
 	}
 }
