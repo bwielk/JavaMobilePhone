@@ -8,8 +8,6 @@ public class Main {
 	private static MobilePhone phone = new MobilePhone("07947927788");
 
 	public static void main(String[] args){
-		Contact contact1 = new Contact("John", "07893455321");
-		phone.addContact(contact1);
 		boolean quit = false; 
 		int choice = 0;
 		printMenu();
@@ -80,10 +78,11 @@ public class Main {
 		System.out.println("Enter a new phone number");
 		String newNumber = scanner.nextLine();
 		Contact newContact = new Contact(newName, newNumber);
-		if(phone.editContact(contact, newContact)){
-			System.out.print("Changes has been made");
-		};
-		
+			if(phone.editContact(contact, newContact)){
+				System.out.print("Changes have been made");
+			}else{
+				System.out.print("Error updating record");
+			}
 		}
 
 	private static void addNewContact() {

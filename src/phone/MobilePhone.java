@@ -69,11 +69,14 @@ public class MobilePhone {
 	}
 	
 	public boolean editContact(Contact oldContact, Contact newContact){
-		if(findContact(oldContact.getName()) >= 0){
-			contacts.set(contacts.indexOf(oldContact), newContact);
-			return true;
+		int foundContact = findContact(oldContact);
+		if(foundContact< 0){
+			System.out.println(oldContact.getName() + " was not found");
+			return false;
 		}
-		return false;
+		contacts.set(foundContact, newContact);
+		System.out.println(oldContact.getName() + " has been updated");
+		return true;
 	}
 	
 	public boolean removeContact(Contact contact){
