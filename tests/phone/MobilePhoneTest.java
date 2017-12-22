@@ -26,6 +26,8 @@ public class MobilePhoneTest {
 		phone.addContact(contact);
 		phone.addContact(contact2);
 		assertEquals(2, phone.getContacts().size());
+		phone.addContact(contact3);
+		assertEquals(3, phone.getContacts().size());
 	}
 	
 	@Test
@@ -46,6 +48,7 @@ public class MobilePhoneTest {
 		Contact contact4 = new Contact("Eve", "09452345667");
 		phone.editContact(contact, contact4);
 		assertEquals("Eve", phone.queryContact(contact4));
+		assertEquals(null, phone.queryContact(contact));
 	}
 	
 	@Test

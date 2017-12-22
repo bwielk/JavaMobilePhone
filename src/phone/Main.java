@@ -90,9 +90,12 @@ public class Main {
 		String name = scanner.nextLine();
 		System.out.println("\nEnter the phone number: ");
 		String number = scanner.nextLine();
-		Contact contact =new Contact(name, number);
-		phone.addContact(contact);
-		System.out.print("\nThe contact " + name + " has been added");
+		Contact contact = new Contact(name, number);
+		if(phone.addContact(contact)){
+			System.out.println("The contact " + contact.getName() + " has been added");
+		}else{
+			System.out.println("The contact " + contact.getName() + " already exists");
+		}
 	}
 
 	public static void printMenu(){

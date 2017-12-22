@@ -10,18 +10,12 @@ public class MobilePhone {
 		this.contacts = new ArrayList<Contact>();
 	}
 
-	public String addContact(Contact contact){
-		if(contacts.size()<150){
-			for(int i=0; i<contacts.size(); i++){
-				Contact element = contacts.get(i);
-				if(element.getName() == contact.getName()){
-					return "The contact already exists";
-				}
-			}
-			contacts.add(contact);
-			return "Contact " + contact.getName() + " has been added";
+	public boolean addContact(Contact contact){
+		if(findContact(contact.getName()) >= 0){
+			return false;
 		}
-		return "The phone can store only 150 contacts";
+		contacts.add(contact);
+		return true;
 	}
 	
 	public ArrayList<Contact> getContacts(){
