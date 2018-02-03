@@ -113,11 +113,23 @@ public class MobilePhoneTest {
 	
 	@Test
 	public void phoneCanRemoveAContact(){
+		System.out.println("Test 9");
 		phone.getContacts().clear();
 		phone.addContact(contact);
 		phone.addContact(contact2);
 		phone.addContact(contact3);
 		phone.removeContact(contact);
 		assertEquals(2, phone.getContacts().size());
+	}
+	
+	@Test
+	public void phoneCanQueryContactByIsName(){
+		System.out.println("Test 10");
+		assertEquals(true, phone.addContact(contact));
+		assertEquals(true, phone.addContact(contact2));
+		assertEquals(true, phone.addContact(new Contact("Jersey", "09842221299")));
+		assertEquals("O9873452111", phone.queryContact("Mother").getPhoneNumber());
+		assertEquals("09842221299", phone.queryContact("Jersey").getPhoneNumber());
+		assertNotEquals("O9873452111", phone.queryContact("Jersey").getPhoneNumber());
 	}
 }

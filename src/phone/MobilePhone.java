@@ -13,11 +13,11 @@ public class MobilePhone {
 	}
 
 	public boolean addContact(Contact contact){
-		if(findContact(contact.getPhoneNumber()) >= 0 && contacts.size() <= 150){
+		if(findContactByPhoneNumber(contact.getPhoneNumber()) >= 0 && contacts.size() <= 150){
 			System.out.println("Contact " + contact.getName() + " already exists");
 			return false;
 		}
-		if(findContact(contact.getPhoneNumber()) == -1 && contacts.size() >= 150){
+		if(findContactByPhoneNumber(contact.getPhoneNumber()) == -1 && contacts.size() >= 150){
 			System.out.println("Contact " + contact.getName() + " cannot be added. No spare space in your contact book");
 			return false;
 		}
@@ -41,7 +41,7 @@ public class MobilePhone {
 		}
 	}
 	
-	private int findContact(String phoneNumber){
+	private int findContactByPhoneNumber(String phoneNumber){
 		for(int i=0; i<contacts.size(); i++){
 			Contact contact = contacts.get(i);
 			if(contact.getPhoneNumber() == phoneNumber){
@@ -51,15 +51,25 @@ public class MobilePhone {
 		return -1;
 	}
 	
+	private int findContactByName(String name){
+		for(int i=0; i<contacts.size(); i++){
+			Contact currentContact = contacts.get(i);
+			if(currentContact.getName().equals(name)){
+				return i;
+			}
+		}
+		return -1;
+	}
+	
 	public String queryContact(Contact contact){
-		if(findContact(contact.getPhoneNumber()) >= 0){
+		if(findContactByPhoneNumber(contact.getPhoneNumber()) >= 0){
 			return contact.getName();
 		}
 		return null;
 	}
 	
-	public Contact queryContact(String name){
-		int position = findContact(name);
+	public Contact queryContactByName(String name){
+		int position = findContactByName(name);
 		if(position >=0){
 			return contacts.get(position);
 		}
@@ -67,24 +77,24 @@ public class MobilePhone {
 	}
 	
 	public boolean editContact(Contact oldContact, Contact newContact){
-		int foundContact = findContact(oldContact.getPhoneNumber());
+		int foundContact = findContactByPhoneNumber(oldContact.getPhoneNumber());
 		if(foundContact < 0){
 			System.out.println("Contact " + oldContact.getName() + " was not found");
 			return false;
 		}
-		if(oldContact.getPhoneNumber() != newContact.getPhoneNumber() && findContact(newContact.getPhoneNumber()) < 0){
+		if(oldContact.getPhoneNumber() != newContact.getPhoneNumber() && findContactByPhoneNumber(newContact.getPhoneNumber()) < 0){
 			contacts.set(foundContact, newContact);
 			System.out.println(oldContact.getName() + " has been updated");
 			return true;
 		}else{
-			Contact contactWithExistingPhoneNumber = contacts.get(findContact(newContact.getPhoneNumber()));
+			Contact contactWithExistingPhoneNumber = contacts.get(findContactByPhoneNumber(newContact.getPhoneNumber()));
 			System.out.println("Cannot update the contact. \nThe new phone number already exists and it's saved in contact " + contactWithExistingPhoneNumber.getName());
 			return false;
 		}
 	}
 	
 	public boolean removeContact(Contact contact){
-		int foundPosition = findContact(contact.getPhoneNumber());
+		int foundPosition = findContactByPhoneNumber(contact.getPhoneNumber());
 		if(foundPosition<0){
 			System.out.println("The contact doesn't exist");
 			return false;

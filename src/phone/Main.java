@@ -44,7 +44,7 @@ public class Main {
 	private static void findContactByName() {
 		System.out.println("Enter a contact's name to search");
 		String name = scanner.nextLine();
-		Contact contact = phone.queryContact(name);
+		Contact contact = phone.queryContactByName(name);
 		System.out.println("\t Contact name: " + "\t" + contact.getName());
 		System.out.println("\t Contact phone number: " + "\t" + contact.getPhoneNumber());
 		
@@ -53,7 +53,7 @@ public class Main {
 	private static void deleteContact() {
 		System.out.println("\nEnter the contact name to delete");
 		String name = scanner.nextLine();
-		Contact contact = phone.queryContact(name);
+		Contact contact = phone.queryContactByName(name);
 		if(contact == null){
 			System.out.println("Contact not found");
 			return;
@@ -68,7 +68,7 @@ public class Main {
 	private static void editContact() {
 		System.out.println("Enter a contact's name");
 		String name = scanner.nextLine();
-		Contact contact = phone.queryContact(name);
+		Contact contact = phone.queryContactByName(name);
 		if(contact == null){
 			System.out.println("The contact cannot be found");
 			return;
