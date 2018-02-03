@@ -68,13 +68,19 @@ public class MobilePhone {
 	
 	public boolean editContact(Contact oldContact, Contact newContact){
 		int foundContact = findContact(oldContact.getPhoneNumber());
-		if(foundContact< 0){
+		if(foundContact < 0){
 			System.out.println("Contact " + oldContact.getName() + " was not found");
 			return false;
 		}
-		contacts.set(foundContact, newContact);
-		System.out.println(oldContact.getName() + " has been updated");
-		return true;
+		if(oldContact.getPhoneNumber() != newContact.getPhoneNumber() && findContact(newContact.getPhoneNumber()) < 0){
+			contacts.set(foundContact, newContact);
+			System.out.println(oldContact.getName() + " has been updated");
+			return true;
+		}else{
+			Contact contactWithExistingPhoneNumber = contacts.get(findContact(newContact.getPhoneNumber()));
+			System.out.println("Cannot update the contact. \nThe new phone number already exists and it's saved in contact " + contactWithExistingPhoneNumber.getName());
+			return false;
+		}
 	}
 	
 	public boolean removeContact(Contact contact){

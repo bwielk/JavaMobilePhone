@@ -98,10 +98,20 @@ public class MobilePhoneTest {
 		assertEquals(true, phone.addContact(contact3));
 		assertEquals(false, phone.editContact(new Contact("Adam", "07983221132"), contact2));
 		assertEquals(true, phone.addContact(new Contact("Adam", "07983221132")));
-		assertEquals(true, phone.editContact(new Contact("Adam", "07983221132"), contact2));
+		assertEquals(true, phone.editContact(new Contact("Adam", "07983221132"), new Contact("Adam", "09431123443")));
 	}
 	
-	//@Test
+	@Test
+	public void phoneContactCannotUpdateAContactWithAnExistingPhoneNumber(){
+		System.out.println("Test 8");
+		assertEquals(true, phone.addContact(contact));
+		assertEquals(true, phone.addContact(contact2));
+		assertEquals(false, phone.editContact(contact, new Contact("Adam", contact.getPhoneNumber())));
+		assertEquals(false, phone.editContact(contact, new Contact("Adam", contact2.getPhoneNumber())));
+		assertEquals(true, phone.editContact(contact, new Contact("Jordan", "09876667430")));
+	}
+	
+	@Test
 	public void phoneCanRemoveAContact(){
 		phone.getContacts().clear();
 		phone.addContact(contact);
