@@ -69,7 +69,7 @@ public class MobilePhone {
 	public boolean editContact(Contact oldContact, Contact newContact){
 		int foundContact = findContact(oldContact.getPhoneNumber());
 		if(foundContact< 0){
-			System.out.println(oldContact.getName() + " was not found");
+			System.out.println("Contact " + oldContact.getName() + " was not found");
 			return false;
 		}
 		contacts.set(foundContact, newContact);

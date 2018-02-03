@@ -59,15 +59,28 @@ public class MobilePhoneTest {
 	public void phoneCannotAddANewContactIfTheContactBookIsFull(){
 		System.out.println("Test 4");
 		for(int i=0; i<150; i++){
-			String name = "name"+i;
-			String number = "" + i + "";
+			String name = "name"+(i+1);
+			String number = "" + (i+1) + "";
 			phone.addContact(new Contact(name, number));
 		}
 		assertEquals(false, phone.addContact(contact));
 	}
 	
-	//@Test
+	@Test
+	public void phoneCanFindAContact(){
+		System.out.println("Test 5");
+		phone.getContacts().clear();
+		assertEquals(true, phone.addContact(new Contact("Jane", "08793452211")));
+		assertEquals(true, phone.addContact(new Contact("Edith", "03733112321")));
+		assertEquals(true, phone.addContact(new Contact("Judy", "03323112321")));
+		assertEquals("Jane", phone.queryContact(new Contact("Jane", "08793452211")));
+		assertEquals("Edith", phone.queryContact(new Contact("Edith", "03733112321")));
+		assertNotEquals("Edtih", phone.queryContact(new Contact("Judy", "03323112321")));
+	}
+	
+	@Test
 	public void phoneContactCanBeEdited(){
+		System.out.println("Test 6");
 		phone.addContact(contact);
 		phone.addContact(contact2);
 		phone.addContact(contact3);
@@ -75,6 +88,17 @@ public class MobilePhoneTest {
 		phone.editContact(contact, contact4);
 		assertEquals("Eve", phone.queryContact(contact4));
 		assertEquals(null, phone.queryContact(contact));
+	}
+	
+	@Test
+	public void phoneContactEditCanFailBecauseOfNotExistingContact(){
+		System.out.println("Test 7");
+		assertEquals(true, phone.addContact(contact));
+		assertEquals(true, phone.addContact(contact2));
+		assertEquals(true, phone.addContact(contact3));
+		assertEquals(false, phone.editContact(new Contact("Adam", "07983221132"), contact2));
+		assertEquals(true, phone.addContact(new Contact("Adam", "07983221132")));
+		assertEquals(true, phone.editContact(new Contact("Adam", "07983221132"), contact2));
 	}
 	
 	//@Test
