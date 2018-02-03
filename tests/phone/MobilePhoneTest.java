@@ -20,6 +20,19 @@ public class MobilePhoneTest {
 		phone = new MobilePhone("07947927788");
 		
 	}
+	
+	@Test
+	public void canAddContacts(){
+		assertEquals(0, phone.getContacts().size());
+		assertEquals(true, phone.addContact(contact));
+		assertEquals(true, phone.addContact(contact2));
+		assertEquals(2, phone.getContacts().size());
+		assertEquals(false, phone.addContact(contact2));
+		assertEquals(2, phone.getContacts().size());
+		phone.getContacts().clear();
+		assertEquals(0, phone.getContacts().size());
+	}
+	
 	@Test
 	public void canStoreContacts() {
 		phone.getContacts().clear();
@@ -30,7 +43,7 @@ public class MobilePhoneTest {
 		assertEquals(3, phone.getContacts().size());
 	}
 	
-	@Test
+	//@Test
 	public void phoneCanStoreOnly150Contacts(){
 		for(int i=0; i<150; i++){
 			String name = "name"+i;

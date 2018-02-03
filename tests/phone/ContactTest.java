@@ -23,5 +23,4 @@ public class ContactTest{
 	public void contactHasPhoneNumber(){
 		assertEquals("07891234567", contact.getPhoneNumber());
 	}
-
 }

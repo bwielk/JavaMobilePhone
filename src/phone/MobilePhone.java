@@ -5,13 +5,16 @@ import java.util.ArrayList;
 public class MobilePhone {
 	
 	private ArrayList<Contact> contacts;
+	private String myPhoneNumber;
 	
 	public MobilePhone(String myPhoneNumber){
 		this.contacts = new ArrayList<Contact>();
+		this.myPhoneNumber = myPhoneNumber;
 	}
 
 	public boolean addContact(Contact contact){
 		if(findContact(contact.getName()) >= 0){
+			System.out.println("Contact " + contact.getName() + " already exists");
 			return false;
 		}
 		contacts.add(contact);
