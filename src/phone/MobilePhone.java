@@ -13,11 +13,16 @@ public class MobilePhone {
 	}
 
 	public boolean addContact(Contact contact){
-		if(findContact(contact.getName()) >= 0){
+		if(findContact(contact.getPhoneNumber()) >= 0 && contacts.size() <= 150){
 			System.out.println("Contact " + contact.getName() + " already exists");
 			return false;
 		}
+		if(findContact(contact.getPhoneNumber()) == -1 && contacts.size() >= 150){
+			System.out.println("Contact " + contact.getName() + " cannot be added. No spare space in your contact book");
+			return false;
+		}
 		contacts.add(contact);
+		System.out.println("Contact " + contact.getName() + " has been succesfully added");
 		return true;
 	}
 	
@@ -36,22 +41,18 @@ public class MobilePhone {
 		}
 	}
 	
-	private int findContact(String name){
+	private int findContact(String phoneNumber){
 		for(int i=0; i<contacts.size(); i++){
 			Contact contact = contacts.get(i);
-			if(contact.getName() == name){
+			if(contact.getPhoneNumber() == phoneNumber){
 				return i;
 			}
 		}
 		return -1;
 	}
 	
-	private int findContact(Contact contact){
-		return contacts.indexOf(contact);
-	}
-	
 	public String queryContact(Contact contact){
-		if(findContact(contact) >= 0){
+		if(findContact(contact.getPhoneNumber()) >= 0){
 			return contact.getName();
 		}
 		return null;
@@ -66,7 +67,7 @@ public class MobilePhone {
 	}
 	
 	public boolean editContact(Contact oldContact, Contact newContact){
-		int foundContact = findContact(oldContact);
+		int foundContact = findContact(oldContact.getPhoneNumber());
 		if(foundContact< 0){
 			System.out.println(oldContact.getName() + " was not found");
 			return false;
@@ -77,7 +78,7 @@ public class MobilePhone {
 	}
 	
 	public boolean removeContact(Contact contact){
-		int foundPosition = findContact(contact);
+		int foundPosition = findContact(contact.getPhoneNumber());
 		if(foundPosition<0){
 			System.out.println("The contact doesn't exist");
 			return false;

@@ -23,6 +23,7 @@ public class MobilePhoneTest {
 	
 	@Test
 	public void canAddContacts(){
+		System.out.println("Test 1");
 		assertEquals(0, phone.getContacts().size());
 		assertEquals(true, phone.addContact(contact));
 		assertEquals(true, phone.addContact(contact2));
@@ -35,6 +36,7 @@ public class MobilePhoneTest {
 	
 	@Test
 	public void canStoreContacts() {
+		System.out.println("Test 2");
 		phone.getContacts().clear();
 		phone.addContact(contact);
 		phone.addContact(contact2);
@@ -43,17 +45,28 @@ public class MobilePhoneTest {
 		assertEquals(3, phone.getContacts().size());
 	}
 	
-	//@Test
-	public void phoneCanStoreOnly150Contacts(){
+	@Test
+	public void phoneCannotAddANewPhoneNumberIfItIsAlreadySaved(){
+		System.out.println("Test 3");
+		phone.getContacts().clear();
+		assertEquals(true, phone.addContact(new Contact("Jane", "08793452211")));
+		assertEquals(true, phone.addContact(new Contact("Edith", "03733112321")));
+		assertEquals(false, phone.addContact(new Contact("Judy", "03733112321")));
+		assertEquals(2, phone.getContacts().size());
+	}
+	
+	@Test
+	public void phoneCannotAddANewContactIfTheContactBookIsFull(){
+		System.out.println("Test 4");
 		for(int i=0; i<150; i++){
 			String name = "name"+i;
 			String number = "" + i + "";
 			phone.addContact(new Contact(name, number));
 		}
-		assertEquals("The phone can store only 150 contacts", phone.addContact(contact));
+		assertEquals(false, phone.addContact(contact));
 	}
 	
-	@Test
+	//@Test
 	public void phoneContactCanBeEdited(){
 		phone.addContact(contact);
 		phone.addContact(contact2);
@@ -64,7 +77,7 @@ public class MobilePhoneTest {
 		assertEquals(null, phone.queryContact(contact));
 	}
 	
-	@Test
+	//@Test
 	public void phoneCanRemoveAContact(){
 		phone.getContacts().clear();
 		phone.addContact(contact);
