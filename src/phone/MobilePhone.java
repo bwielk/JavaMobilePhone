@@ -107,7 +107,6 @@ public class MobilePhone {
 			return false;
 		}
 		contacts.remove(foundPosition);
-		System.out.println("The contact has been deleted");
 		return true;
 	}
 }

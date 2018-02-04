@@ -51,7 +51,7 @@ public class Main {
 	}
 
 	private static void deleteContact() {
-		System.out.println("\nEnter the contact name to delete");
+		System.out.println("\nEnter the name of the contact to delete");
 		String name = scanner.nextLine();
 		Contact contact = phone.queryContactByName(name);
 		if(contact == null){
@@ -59,14 +59,14 @@ public class Main {
 			return;
 		}
 		if(phone.removeContact(contact)){
-			System.out.println("Contact deleted");
+			System.out.println("Contact " + contact.getName() + " has been deleted");
 		}else{
 			System.out.println("Fail. Contact doesn't exist");
 		}
 	}
 
 	private static void editContact() {
-		System.out.println("Enter a contact's name");
+		System.out.println("Enter a the name of the contact to edit");
 		String name = scanner.nextLine();
 		Contact contact = phone.queryContactByName(name);
 		if(contact == null){
@@ -75,21 +75,29 @@ public class Main {
 		}
 		System.out.println("Would you like to change the name of the selected contact? \nPress 'y' for yes and 'n' for no: ");
 		String answerChangingName = scanner.nextLine();
+		editingContactNameFlow(answerChangingName, contact);
+		System.out.println("Would you like to change the phone number of the selected contact? \nPress 'y' for yes and 'n' for no: ");
+		String answerChanginPhoneNumber = scanner.nextLine();
+		editingContactPhoneNumber(answerChanginPhoneNumber, contact);
+	}
+	
+	private static void editingContactNameFlow(String answerChangingName, Contact contact){
 		if(answerChangingName.equals("y")){
 			String oldName = contact.getName();
 			System.out.println("Enter a new name: ");
 			String newName = scanner.nextLine();
 			phone.editContactName(contact, newName);
 			if(phone.queryContact(contact) != oldName){
-				System.out.println("You have updated the contact name to " + newName);
-			}else{
 				System.out.println("Changes not implemented. Try again");
+			}else{
+				System.out.println("You have updated the contact name to " + newName);
 			}
 		}else if(answerChangingName.equals("n")){
 			;
 		}
-		System.out.println("Would you like to change the phone number of the selected contact? \nPress 'y' for yes and 'n' for no: ");
-		String answerChanginPhoneNumber = scanner.nextLine();
+	}
+	
+	private static void editingContactPhoneNumber(String answerChanginPhoneNumber, Contact contact){
 		if(answerChanginPhoneNumber.equals("y")){
 			String oldPhoneNumber = contact.getPhoneNumber();
 			System.out.println("Enter a new phone number: ");
