@@ -17,7 +17,7 @@ public class MobilePhone {
 			System.out.println("Contact " + contact.getName() + " already exists");
 			return false;
 		}
-		if(findContactByName(contact.getName()) == -1 && contacts.size() >= 150){
+		if(findContactByPhoneNumber(contact.getName()) == -1 && contacts.size() >= 150){
 			System.out.println("Contact " + contact.getName() + " cannot be added. No spare space in your contact book");
 			return false;
 		}
