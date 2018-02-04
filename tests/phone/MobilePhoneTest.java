@@ -51,7 +51,7 @@ public class MobilePhoneTest {
 		phone.getContacts().clear();
 		assertEquals(true, phone.addContact(new Contact("Jane", "08793452211")));
 		assertEquals(true, phone.addContact(new Contact("Edith", "03733112321")));
-		assertEquals(false, phone.addContact(new Contact("Judy", "03733112321")));
+		assertEquals(false, phone.addContact(new Contact("Jane", "03753112321")));
 		assertEquals(2, phone.getContacts().size());
 	}
 	
@@ -84,12 +84,25 @@ public class MobilePhoneTest {
 		phone.addContact(contact);
 		phone.addContact(contact2);
 		phone.addContact(contact3);
-		Contact contact4 = new Contact("Eve", "09452345667");
-		phone.editContactName(contact, contact4.getName());
-		assertEquals("07893456244", phone.queryContactByName("Eve").getPhoneNumber());
+		assertEquals(true, phone.editContactName(contact, "Esther"));
+		assertEquals("07893456244", phone.queryContactByName("Esther").getPhoneNumber());
 		assertEquals(3, phone.getContacts().size());
 		assertEquals(null, phone.queryContactByName("John"));
 		assertEquals(contact2, phone.queryContactByName("Mother"));
+	}
+	
+	@Test
+	public void phoneContactCanBeEditedMultipleTimesInARow(){
+		System.out.println("Test 6.5");
+		assertEquals(true, phone.addContact(contact));
+		assertEquals(true, phone.addContact(new Contact("Adam", "01112223344")));
+		Contact contactToEdit = phone.queryContactByName("Adam");
+		assertEquals(true, phone.editContactName(contactToEdit, "Nelson"));
+		assertEquals("01112223344", phone.queryContactByName("Nelson").getPhoneNumber());
+		Contact contactToEdit2 = phone.queryContactByName("Nelson");
+		assertEquals(true, phone.editContactName(contactToEdit2, "Jason"));
+		assertEquals("01112223344", phone.queryContactByName("Jason").getPhoneNumber());
+		assertNotEquals(contact.getPhoneNumber(), phone.queryContactByName("Jason").getPhoneNumber());
 	}
 	
 	@Test
@@ -98,13 +111,12 @@ public class MobilePhoneTest {
 		phone.addContact(contact);
 		phone.addContact(contact2);
 		Contact contact4 = new Contact("Jordan", "09452345667");
-		phone.editContactPhoneNumber(contact2, contact4.getPhoneNumber());
+		assertEquals(true, phone.editContactPhoneNumber(contact2, contact4.getPhoneNumber()));
 		assertEquals("09452345667", phone.queryContactByName(contact2.getName()).getPhoneNumber());
 		assertNotEquals("O9873452111", phone.queryContactByName(contact2.getName()).getPhoneNumber());
 		assertEquals(2, phone.getContacts().size());
 		assertEquals(null, phone.queryContact(contact2));
 	}
-	
 	
 	@Test
 	public void phoneContactEditCanFailBecauseOfNotExistingContact(){
@@ -138,5 +150,17 @@ public class MobilePhoneTest {
 		assertEquals("O9873452111", phone.queryContactByName("Mother").getPhoneNumber());
 		assertEquals("09842221299", phone.queryContactByName("Jersey").getPhoneNumber());
 		assertNotEquals("O9873452111", phone.queryContactByName("Jersey").getPhoneNumber());
+	}
+	
+	@Test
+	public void phoneCanChangeTheContactNameAndPhoneNumberAtTheSameTime(){
+		System.out.println("Test 11");
+		assertEquals(true, phone.addContact(contact3));
+		assertEquals("O7234221109", phone.queryContactByName("Mike").getPhoneNumber());
+		assertEquals(true, phone.editContactName(phone.queryContactByName("Mike"), "Alex"));
+		assertEquals("O7234221109", phone.queryContactByName("Alex").getPhoneNumber());
+		assertEquals(true, phone.editContactName(phone.queryContactByName("Alex"), "Mike"));
+		assertEquals(true, phone.editContactPhoneNumber(phone.queryContactByName("Mike"), "08882221122"));
+		assertEquals("08882221122", phone.queryContactByName("Mike").getPhoneNumber());
 	}
 }

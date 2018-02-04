@@ -75,19 +75,12 @@ public class Main {
 		}
 		System.out.println("Would you like to change the name of the selected contact? \nPress 'y' for yes and 'n' for no: ");
 		String answerChangingName = scanner.nextLine();
-		editingContactNameFlow(answerChangingName, contact);
-		System.out.println("Would you like to change the phone number of the selected contact? \nPress 'y' for yes and 'n' for no: ");
-		String answerChanginPhoneNumber = scanner.nextLine();
-		editingContactPhoneNumber(answerChanginPhoneNumber, contact);
-	}
-	
-	private static void editingContactNameFlow(String answerChangingName, Contact contact){
 		if(answerChangingName.equals("y")){
 			String oldName = contact.getName();
 			System.out.println("Enter a new name: ");
 			String newName = scanner.nextLine();
 			phone.editContactName(contact, newName);
-			if(phone.queryContact(contact) != oldName){
+			if(phone.queryContactByName(newName).getName() == oldName){
 				System.out.println("Changes not implemented. Try again");
 			}else{
 				System.out.println("You have updated the contact name to " + newName);
@@ -95,9 +88,8 @@ public class Main {
 		}else if(answerChangingName.equals("n")){
 			;
 		}
-	}
-	
-	private static void editingContactPhoneNumber(String answerChanginPhoneNumber, Contact contact){
+		System.out.println("Would you like to change the phone number of the selected contact? \nPress 'y' for yes and 'n' for no: ");
+		String answerChanginPhoneNumber = scanner.nextLine();
 		if(answerChanginPhoneNumber.equals("y")){
 			String oldPhoneNumber = contact.getPhoneNumber();
 			System.out.println("Enter a new phone number: ");
@@ -112,7 +104,7 @@ public class Main {
 			;
 		}
 	}
-
+	
 	private static void addNewContact() {
 		System.out.println("\nEnter the contact name: ");
 		String name = scanner.nextLine();
