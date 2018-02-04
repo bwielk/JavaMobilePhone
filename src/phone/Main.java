@@ -67,13 +67,8 @@ public class Main {
 
 	private static void editContact() {
 		System.out.println("Enter a contact's name");
-		String newName = null;
-		String newPhoneNumber = null;
 		String name = scanner.nextLine();
 		Contact contact = phone.queryContactByName(name);
-		String currentContactPhoneNumber = contact.getPhoneNumber();
-		String currentContactName = contact.getName();
-		phone.getContacts().set(phone.getContacts().indexOf(contact), null);
 		if(contact == null){
 			System.out.println("The contact cannot be found");
 			return;
@@ -81,26 +76,34 @@ public class Main {
 		System.out.println("Would you like to change the name of the selected contact? \nPress 'y' for yes and 'n' for no: ");
 		String answerChangingName = scanner.nextLine();
 		if(answerChangingName.equals("y")){
+			String oldName = contact.getName();
 			System.out.println("Enter a new name: ");
-			newName = scanner.nextLine();
+			String newName = scanner.nextLine();
+			phone.editContactName(contact, newName);
+			if(phone.queryContact(contact) != oldName){
+				System.out.println("You have updated the contact name to " + newName);
+			}else{
+				System.out.println("Changes not implemented. Try again");
+			}
 		}else if(answerChangingName.equals("n")){
-			newName = currentContactName;
+			;
 		}
 		System.out.println("Would you like to change the phone number of the selected contact? \nPress 'y' for yes and 'n' for no: ");
 		String answerChanginPhoneNumber = scanner.nextLine();
 		if(answerChanginPhoneNumber.equals("y")){
+			String oldPhoneNumber = contact.getPhoneNumber();
 			System.out.println("Enter a new phone number: ");
-			newPhoneNumber = scanner.nextLine();
-		}else if(answerChanginPhoneNumber.equals("n")){
-			newPhoneNumber = currentContactPhoneNumber;
-		}
-		Contact newContact = new Contact(newName, newPhoneNumber);
-			if(phone.editContact(contact, newContact)){
-				System.out.print("Changes have been made");
+			String newPhoneNumber = scanner.nextLine();
+			phone.editContactPhoneNumber(contact, newPhoneNumber);
+			if(phone.queryContactByName(contact.getName()).getPhoneNumber() != oldPhoneNumber){
+				System.out.println("You have updated " + contact.getName() + "'s phone number");
 			}else{
-				System.out.print("Error updating record");
+				System.out.println("Changes not implemented. Try again");
 			}
+		}else if(answerChanginPhoneNumber.equals("n")){
+			;
 		}
+	}
 
 	private static void addNewContact() {
 		System.out.println("\nEnter the contact name: ");

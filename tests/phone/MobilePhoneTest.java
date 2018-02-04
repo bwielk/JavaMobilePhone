@@ -97,9 +97,11 @@ public class MobilePhoneTest {
 		System.out.println("Test 7");
 		phone.addContact(contact);
 		phone.addContact(contact2);
-		Contact contact4 = new Contact("Eve", "09452345667");
+		Contact contact4 = new Contact("Jordan", "09452345667");
 		phone.editContactPhoneNumber(contact2, contact4.getPhoneNumber());
 		assertEquals("09452345667", phone.queryContactByName(contact2.getName()).getPhoneNumber());
+		assertNotEquals("O9873452111", phone.queryContactByName(contact2.getName()).getPhoneNumber());
+		assertEquals(2, phone.getContacts().size());
 		assertEquals(null, phone.queryContact(contact2));
 	}
 	
@@ -113,7 +115,7 @@ public class MobilePhoneTest {
 		assertEquals(false, phone.editContactName(new Contact("Adam", "07983221132"), contact2.getName()));
 		assertEquals(true, phone.addContact(new Contact("Adam", "07983221132")));
 		assertEquals(true, phone.editContactPhoneNumber(new Contact("Adam", "07983221132"), "09431123443"));
-		assertEquals("09431123443", phone.queryContactByName("Adam").getName());
+		assertEquals("09431123443", phone.queryContactByName("Adam").getPhoneNumber());
 	}
 	
 	@Test
