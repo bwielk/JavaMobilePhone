@@ -87,10 +87,10 @@ public class Main {
 			System.out.println("Enter a new name: ");
 			String newName = scanner.nextLine();
 			phone.editContactName(contact, newName);
-			if(phone.queryContact(contact) != oldName){
-				System.out.println("Changes not implemented. Try again");
-			}else{
+			if(phone.getContacts().get(phone.getContacts().indexOf(phone.queryContactByName(newName))).getName() != oldName){
 				System.out.println("You have updated the contact name to " + newName);
+			}else{
+				System.out.println("Changes not implemented. Try again");
 			}
 		}else if(answerChangingName.equals("n")){
 			;

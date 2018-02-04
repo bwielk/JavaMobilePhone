@@ -13,11 +13,11 @@ public class MobilePhone {
 	}
 
 	public boolean addContact(Contact contact){
-		if(findContactByPhoneNumber(contact.getPhoneNumber()) >= 0 && contacts.size() <= 150){
+		if(findContactByName(contact.getName()) >= 0 && contacts.size() <= 150){
 			System.out.println("Contact " + contact.getName() + " already exists");
 			return false;
 		}
-		if(findContactByPhoneNumber(contact.getPhoneNumber()) == -1 && contacts.size() >= 150){
+		if(findContactByPhoneNumber(contact.getName()) == -1 && contacts.size() >= 150){
 			System.out.println("Contact " + contact.getName() + " cannot be added. No spare space in your contact book");
 			return false;
 		}
