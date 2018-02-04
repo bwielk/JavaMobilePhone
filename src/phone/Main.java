@@ -69,18 +69,25 @@ public class Main {
 		System.out.println("Enter a the name of the contact to edit");
 		String name = scanner.nextLine();
 		Contact contact = phone.queryContactByName(name);
+		//int indexOfContact = phone.getContacts().indexOf(contact);
 		if(contact == null){
 			System.out.println("The contact cannot be found");
 			return;
 		}
 		System.out.println("Would you like to change the name of the selected contact? \nPress 'y' for yes and 'n' for no: ");
 		String answerChangingName = scanner.nextLine();
+		changeNameFlow(answerChangingName, contact);
+		System.out.println("Would you like to change the phone number of the selected contact? \nPress 'y' for yes and 'n' for no: ");
+		String answerChangingPhoneNumber = scanner.nextLine();
+		changeNumberFlow(answerChangingPhoneNumber, contact);
+	}
+	
+	private static void changeNameFlow(String answerChangingName, Contact contact){
 		if(answerChangingName.equals("y")){
 			String oldName = contact.getName();
 			System.out.println("Enter a new name: ");
 			String newName = scanner.nextLine();
 			phone.editContactName(contact, newName);
-
 			if(phone.getContacts().get(phone.getContacts().indexOf(phone.queryContactByName(newName))).getName() != oldName){
 				System.out.println("You have updated the contact name to " + newName);
 			}else{
@@ -89,9 +96,10 @@ public class Main {
 		}else if(answerChangingName.equals("n")){
 			;
 		}
-		System.out.println("Would you like to change the phone number of the selected contact? \nPress 'y' for yes and 'n' for no: ");
-		String answerChanginPhoneNumber = scanner.nextLine();
-		if(answerChanginPhoneNumber.equals("y")){
+	}
+	
+	private static void changeNumberFlow(String answerChangingNumber, Contact contact){
+		if(answerChangingNumber.equals("y")){
 			String oldPhoneNumber = contact.getPhoneNumber();
 			System.out.println("Enter a new phone number: ");
 			String newPhoneNumber = scanner.nextLine();
@@ -101,7 +109,7 @@ public class Main {
 			}else{
 				System.out.println("Changes not implemented. Try again");
 			}
-		}else if(answerChanginPhoneNumber.equals("n")){
+		}else if(answerChangingNumber.equals("n")){
 			;
 		}
 	}
