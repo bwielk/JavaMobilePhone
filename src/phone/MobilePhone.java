@@ -76,20 +76,27 @@ public class MobilePhone {
 		return null;
 	}
 	
-	public boolean editContact(Contact oldContact, Contact newContact){
-		int foundContact = findContactByPhoneNumber(oldContact.getPhoneNumber());
+	public boolean editContactName(Contact contactToEdit, String newContactName){
+		int foundContact = findContactByPhoneNumber(contactToEdit.getPhoneNumber());
 		if(foundContact < 0){
-			System.out.println("Contact " + oldContact.getName() + " was not found");
+			System.out.println("Contact " + contactToEdit.getName() + " was not found");
 			return false;
-		}
-		if(oldContact.getPhoneNumber() != newContact.getPhoneNumber() && findContactByPhoneNumber(newContact.getPhoneNumber()) < 0){
-			contacts.set(foundContact, newContact);
-			System.out.println(oldContact.getName() + " has been updated");
-			return true;
 		}else{
-			Contact contactWithExistingPhoneNumber = contacts.get(findContactByPhoneNumber(newContact.getPhoneNumber()));
-			System.out.println("Cannot update the contact. \nThe new phone number already exists and it's saved in contact " + contactWithExistingPhoneNumber.getName());
+			Contact updatedContact = new Contact(newContactName, contactToEdit.getPhoneNumber());
+			contacts.set(foundContact, updatedContact);
+			return true;
+		}
+	}
+	
+	public boolean editContactPhoneNumber(Contact contactToEdit, String newPhoneNumber){
+		int foundContact = findContactByPhoneNumber(contactToEdit.getPhoneNumber());
+		if(foundContact < 0){
+			System.out.println("Contact " + contactToEdit.getName() + " was not found");
 			return false;
+		}else{
+			Contact updatedContact = new Contact(contactToEdit.getName(), newPhoneNumber);
+			contacts.set(foundContact, updatedContact);
+			return true;
 		}
 	}
 	

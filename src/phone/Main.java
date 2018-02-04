@@ -67,17 +67,34 @@ public class Main {
 
 	private static void editContact() {
 		System.out.println("Enter a contact's name");
+		String newName = null;
+		String newPhoneNumber = null;
 		String name = scanner.nextLine();
 		Contact contact = phone.queryContactByName(name);
+		String currentContactPhoneNumber = contact.getPhoneNumber();
+		String currentContactName = contact.getName();
+		phone.getContacts().set(phone.getContacts().indexOf(contact), null);
 		if(contact == null){
 			System.out.println("The contact cannot be found");
 			return;
 		}
-		System.out.println("Enter new name: ");
-		String newName = scanner.nextLine();
-		System.out.println("Enter a new phone number");
-		String newNumber = scanner.nextLine();
-		Contact newContact = new Contact(newName, newNumber);
+		System.out.println("Would you like to change the name of the selected contact? \nPress 'y' for yes and 'n' for no: ");
+		String answerChangingName = scanner.nextLine();
+		if(answerChangingName.equals("y")){
+			System.out.println("Enter a new name: ");
+			newName = scanner.nextLine();
+		}else if(answerChangingName.equals("n")){
+			newName = currentContactName;
+		}
+		System.out.println("Would you like to change the phone number of the selected contact? \nPress 'y' for yes and 'n' for no: ");
+		String answerChanginPhoneNumber = scanner.nextLine();
+		if(answerChanginPhoneNumber.equals("y")){
+			System.out.println("Enter a new phone number: ");
+			newPhoneNumber = scanner.nextLine();
+		}else if(answerChanginPhoneNumber.equals("n")){
+			newPhoneNumber = currentContactPhoneNumber;
+		}
+		Contact newContact = new Contact(newName, newPhoneNumber);
 			if(phone.editContact(contact, newContact)){
 				System.out.print("Changes have been made");
 			}else{

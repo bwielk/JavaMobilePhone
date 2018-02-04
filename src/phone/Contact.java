@@ -17,4 +17,8 @@ public class Contact {
 	public String getPhoneNumber(){
 		return this.phoneNumber;
 	}
+	
+	public void clearPhoneNumber(){
+		this.phoneNumber = null;
+	}
 }
